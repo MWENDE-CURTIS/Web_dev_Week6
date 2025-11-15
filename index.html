@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Event Handling Assignment</title>
+    <!-- Load Tailwind CSS for modern styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for appearance */
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        /* Specific styling for the toggle switch ball animation */
+        .toggle-switch-ball {
+            transition: transform 0.3s ease-in-out;
+        }
+        /* Styling for validation messages */
+        .validation-error {
+            color: #ef4444; /* Tailwind red-500 */
+            font-size: 0.875rem; /* text-sm */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100">
+
+    <div class="max-w-4xl mx-auto p-6 md:p-10">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl font-extrabold text-indigo-600 dark:text-indigo-400">
+                JS Interactive Control Panel
+            </h1>
+            <p class="mt-2 text-lg text-gray-600 dark:text-gray-400">
+                Event Handling, Dynamic Features, and Custom Validation
+            </p>
+        </header>
+
+        <!-- ======================================================= -->
+        <!-- PART 2: INTERACTIVE ELEMENT (Light/Dark Mode Toggle) -->
+        <!-- ======================================================= -->
+        <div class="bg-white dark:bg-gray-800 shadow-xl rounded-xl p-6 mb-8">
+            <h2 class="text-2xl font-semibold mb-4 border-b pb-2 border-gray-200 dark:border-gray-700">
+                Dark Mode Toggle
+            </h2>
+            <div class="flex items-center justify-between">
+                <span class="text-lg">Current Mode: <span id="mode-status" class="font-bold text-indigo-600 dark:text-indigo-400">Light</span></span>
+                
+                <label for="darkModeToggle" class="flex items-center cursor-pointer">
+                    <!-- Toggle Switch -->
+                    <div class="relative">
+                        <!-- Input checkbox hidden -->
+                        <input type="checkbox" id="darkModeToggle" class="sr-only">
+                        <!-- Track -->
+                        <div class="block bg-gray-600 dark:bg-gray-600 w-14 h-8 rounded-full transition-colors duration-300"></div>
+                        <!-- Ball/Selector -->
+                        <div id="toggle-ball" class="absolute left-1 top-1 bg-white w-6 h-6 rounded-full toggle-switch-ball shadow-md">
+                            <!-- Icon for visual feedback (Sun/Moon icons) -->
+                            <svg id="sun-icon" class="w-6 h-6 text-yellow-500 p-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                            </svg>
+                            <svg id="moon-icon" class="w-6 h-6 text-gray-800 p-0.5 hidden" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                            </svg>
+                        </div>
+                    </div>
+                </label>
+            </div>
+        </div>
+
+        <!-- ======================================================= -->
+        <!-- PART 1: EVENT HANDLING (Mouse Hover) -->
+        <!-- ======================================================= -->
+        <div class="bg-white dark:bg-gray-800 shadow-xl rounded-xl p-6 mb-8">
+            <h2 class="text-2xl font-semibold mb-4 border-b pb-2 border-gray-200 dark:border-gray-700">
+                Hover-Activated Event
+            </h2>
+            <div id="hover-box" 
+                 class="p-6 text-center border-2 border-dashed border-gray-300 dark:border-gray-600 
+                        cursor-pointer transition-colors duration-300 hover:bg-yellow-50 dark:hover:bg-yellow-900">
+                <p id="default-message" class="text-lg font-medium">
+                    Hover your mouse over this box to reveal a secret message!
+                </p>
+                <p id="secret-message" class="text-xl font-bold text-red-600 dark:text-red-400 hidden">
+                    ACCESS GRANTED: All your hard work in JS is paying off! 🎉
+                </p>
+            </div>
+        </div>
+
+        <!-- ======================================================= -->
+        <!-- PART 3: FORM VALIDATION -->
+        <!-- ======================================================= -->
+        <div class="bg-white dark:bg-gray-800 shadow-xl rounded-xl p-8">
+            <h2 class="text-2xl font-semibold mb-6 text-indigo-600 dark:text-indigo-400">
+                Custom Registration Form Validation
+            </h2>
+            <form id="registration-form" class="space-y-4">
+
+                <!-- Name Field -->
+                <div>
+                    <label for="name" class="block text-sm font-medium">Full Name (Min 3 chars)</label>
+                    <input type="text" id="name" name="name" 
+                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 bg-gray-50 dark:bg-gray-700 dark:border-gray-600 focus:ring-indigo-500 focus:border-indigo-500">
+                    <p id="name-error" class="validation-error"></p>
+                </div>
+
+                <!-- Email Field -->
+                <div>
+                    <label for="email" class="block text-sm font-medium">Email Address</label>
+                    <input type="text" id="email" name="email" 
+                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 bg-gray-50 dark:bg-gray-700 dark:border-gray-600 focus:ring-indigo-500 focus:border-indigo-500">
+                    <p id="email-error" class="validation-error"></p>
+                </div>
+
+                <!-- Password Field -->
+                <div>
+                    <label for="password" class="block text-sm font-medium">Password (Min 8 chars)</label>
+                    <input type="password" id="password" name="password" 
+                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 bg-gray-50 dark:bg-gray-700 dark:border-gray-600 focus:ring-indigo-500 focus:border-indigo-500">
+                    <p id="password-error" class="validation-error"></p>
+                </div>
+
+                <!-- Submission Button -->
+                <button type="submit" 
+                        class="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out dark:bg-indigo-500 dark:hover:bg-indigo-600">
+                    Register
+                </button>
+            </form>
+
+            <div id="form-success-message" 
+                 class="mt-4 p-4 rounded-md bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-200 hidden">
+                <p class="font-semibold">Success! Form data is valid and ready to submit.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Link to the external JavaScript file -->
+    <script src="script.js"></script>
+</body>
+</html>
